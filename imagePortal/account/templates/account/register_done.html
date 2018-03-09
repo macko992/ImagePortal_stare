@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Wellcome {% endblock %}
+
+{% block content %}
+  <h1>Wellcome, {{ new_user.first_name }}</h1>
+  <p>
+    Your account has been created. <br />
+    Now you can log in to web page.
+    <form action="{% url "login" %}">
+      <input type="submit" value="Login" />
+    </form>
+  </p>
+
+
+{% endblock %}

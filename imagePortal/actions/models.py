@@ -1,0 +1,29 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+
+class Action(models.Model):
+    #User który przeprowadził kacją
+    user = models.ForeignKey(User, related_name='actions',
+                             db_index=True)
+    #Kolumna określająca akcję podjętą przez Usera
+    verb = models.CharField(max_length=255)
+
+    #kolumna prowadzaca do modelu ContentType(typ ForeignKey)
+    target_ct = models.ForeignKey(ContentType, blank=True,
+                                  null=True,
+                                  related_name='target_obj')
+    #przechowuje klucz podstawowy powiazanego obiektu
+    target_id = models.PositiveIntegerField(null=True, blank=True,
+                                            db_index=True)
+    #Połączenie 2 powuższych kolumn
+    target = GenericForeignKey('target_ct', 'target_id')
+
+    #Czas w jakim została podjęta akcja
+    created = models.DateTimeField(auto_now_add=True,
+                                   db_index = True)
+
+
+    class Meta:
+        ordering = ('-created',)

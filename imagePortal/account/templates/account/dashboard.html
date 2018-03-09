@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %} Main Panel{% endblock %}
+
+{% block content %}
+  <h1> Main Panel </h1>
+  {% with total_images_created=request.user.images_created.count %}
+  <p>
+    Wellcome in main panel. You added {{ total_images_created }} image{{ total_images_created|pluralize:"s"}}.
+  </p>
+  {% endwith %}
+
+  <p>
+    Drag the button below to the Favorites bar. <br />
+    You will gain the ability to add images from other websites.
+    <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">Add image</a>
+  </p>
+
+  <p>
+    Now you can edit yout profile <br />
+    <form action="{% url "editProfile" %}">
+      <input type="submit" value="Edit Profile" />
+    </form>
+  </p>
+
+  <a href="{% url "images:uploadImage" %}">upll</a>
+
+  <h2>What's now??</h2>
+  <div id="action-list">
+    {% for action in actions %}
+      {% include "actions/action/detail.html" %}
+    {% endfor %}
+  </div>
+
+{% endblock %}
