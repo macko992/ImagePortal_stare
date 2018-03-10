@@ -9,7 +9,7 @@ class Image(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200,
                             blank=True)
-    url = models.URLField()
+    url = models.URLField(blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d')
     description = models.TextField(blank=True)
     created = models.DateField(auto_now_add=True,
@@ -20,7 +20,7 @@ class Image(models.Model):
 
     total_likes = models.PositiveIntegerField(db_index=True, default=0)
     #powyzsza kolumna pozwala na przechowywanie całkowitej liczby userów, którzy
-    #polubili dane zdjecie                                
+    #polubili dane zdjecie
 
 
     def __str__(self):
@@ -35,4 +35,4 @@ class Image(models.Model):
         return reverse('images:detail', args=[self.id, self.slug])
 
     class Meta:
-        ordering = ["image"]
+        ordering = ["-image"]

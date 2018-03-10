@@ -12,20 +12,23 @@
   {% endthumbnail %}
   {% with total_likes=image.users_like.count users_like=image.users_like.all %}
     <div class="image-info">
-      <div>
+
+      <div >
         <span class="count">
           <span class="total">{{ total_likes }}</span> polubień
         </span>
           <span class="count">
           <span class="total">{{ total_views }}</span> Wyświetleń
         </span>
-        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
+
+        <a href="#" data-id="{{ image.id }}" onClick="window.location.reload()" data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
           {% if request.user not in users_like %}
             Lubię
           {% else %}
             Nie lubię
           {% endif %}
         </a>
+
       </div>
       {{ image.description|linebreaks }}
     </div>
@@ -53,16 +56,12 @@
           var previous_action = $('a.like').data('action');
 
           // Zmiana wartości atrybutu data-action.
-          $('a.like').data('action', previous_action == 'like' ?
-'unlike' : 'like');
+          $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
           // Zmiana tekstu wyświetlanego przez łącze.
-          $('a.like').text(previous_action == 'lubię' ? 'Nie lubię' :
-'Lubię');
+          $('a.like').text(previous_action == 'lubię' ? 'Nie lubię' : 'Lubię');
         // Uaktualnienie całkowitej liczby polubienia danego obrazu.
-          var previous_likes = parseInt($('span.count .total').
-text());
-          $('span.count .total').text(previous_action == 'like' ?
-previous_likes + 1 : previous_likes - 1);
+          var previous_likes = parseInt($('span.count .total').text());
+          $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
         }
       }
     );

@@ -1,20 +1,37 @@
 {% extends "base.html" %}
+{% load thumbnail %}
+
 {% block title %}Edit Profile {% endblock %}
 
 {% block content %}
-  <h1>Edit your account  </h1>
-  <p >
+  <h1>Edit your account
 
-  </p>
-  <p>
-    You can change the settings in the form below
-  </p>
+  </h1>
+
+
+
+
   <form action="." method="post" enctype="multipart/form-data">
 
+
+
     {{ user_form.as_p }}
+    <p style = "position: absolute; left: 500px; ">
+      <br />
+      {% thumbnail user.profile.photo "150x150" crop="10%" as im %}
+            <img src="{{ im.url }}" class="user-detail">
+      {% endthumbnail %}
+    </p>
     {{ profile_form.as_p}}
     {% csrf_token %}
 
+
+
     <p><input type="submit" value="Save changes" /></p>
   </form>
+  <h1>Change password</h1>
+  <form action="{% url "change_password" %}">
+    <input type="submit" value="Change" />
+  </form>
+
 {% endblock %}

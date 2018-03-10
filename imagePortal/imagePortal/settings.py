@@ -134,6 +134,7 @@ MEDIA_URL = '/media/'   #określa miejsce przechowywania danych multimedialmnych
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') #ścieżka dostępu stony do plików multimedialnych
 
 
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',

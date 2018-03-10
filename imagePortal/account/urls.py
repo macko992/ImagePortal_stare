@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-#from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import login, logout
 from django.conf import settings
 
@@ -24,5 +24,8 @@ urlpatterns = [
     url(r'^users/follow/$', views.user_follow, name='user_follow'),
     #profil user'a
     url(r'^users/(?P<username>[-\w]+)/$', views.user_detail, name='user_detail'),
+    #change_password
+    url(r'^password/$', views.change_password,  name='change_password'),
+
 
 ]
